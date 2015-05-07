@@ -1,6 +1,12 @@
 # Potion
 
-TODO: Write a gem description
+Create a Potionfile in the Directory where you'd like to have your dependencies.
+
+Example Potionfile:
+
+```:github => 'SwiftyJSON/SwiftyJSON', :ref => '2.1.0'```
+
+```:github => 'SwiftyJSON/SwiftyJSON', :ref => 'f75736d83f', :submodule => true```
 
 ## Installation
 
