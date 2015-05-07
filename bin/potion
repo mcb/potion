@@ -1,0 +1,39 @@
+#!/usr/bin/ruby
+
+require 'optparse'
+require_relative '../lib/potion'
+
+commands = OptionParser.new do |opt|
+  opt.banner = "Usage: #{File.basename(__FILE__)} environment [OPTIONS]"
+  opt.separator  ''
+  opt.separator  'Available cmds are (install/prune)'
+  opt.separator  ''
+  opt.separator  'Options'
+
+  opt.on('-h','--help','Show this help message and quit') do
+    puts commands
+    exit
+  end
+
+  opt.on('-v','--version','Show version number and quit') do
+    puts Potion::VERSION
+    exit
+  end
+end
+
+begin commands.parse! ARGV
+rescue OptionParser::InvalidOption => e
+  puts e
+  puts commands
+  exit 1
+end
+
+case ARGV[0]
+  when 'install'
+    recipes = Potion::RecipeLoader.read_file
+    Potion::Runner.install(recipes)
+  when 'prune'
+    Potion::Runner.prune
+  else
+    puts commands
+end
